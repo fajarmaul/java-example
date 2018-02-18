@@ -20,15 +20,17 @@ public class JavaApp {
 //    CarTires aCarTires;
 //   
     
-    public void getStatus(CarEngine aCarEngine){
+    public void getStatus(CarEngine aCarEngine, CarCondition aCarCondition){               
         System.out.println(
-                "Bensin Sebanyak "+aCarEngine.getBensin()
-                +"\nOli Sebanyak "+(int)aCarEngine.getOli()
-                +"\nMobil dalam keadaan "
-                +aCarEngine.cekEngine()
-                +" Jalan"
+                    "Status Mobil = "+aCarEngine.getBensin()+
+                    " Bensin: "+ aCarEngine.getOli()+ 
+                    " Kilo : "+ aCarCondition.getKiloMobil()+
+                    " Perlu Perbaikan :"+aCarCondition.isIsNeedPerbaikan()+
+                    " Overkilo: "+aCarCondition.getOverKilo()                
         );                           
     }
+    
+    
     
     public void jalan(CarEngine aCarEngine, CarCondition aCarCondition, CarTires aCarTires){
         int overkilo;
@@ -48,6 +50,12 @@ public class JavaApp {
         if(aCarCondition.getOverKilo()>10){
             aCarCondition.setRusak(true);
         }
+    }
+    
+    public void doPerbaikan(CarCondition aCarCondition){
+        aCarCondition.setIsNeedPerbaikan(false);
+        aCarCondition.setOverKilo(0);        
+        System.out.println("Engine Repaired \n");
     }
     
     public void isiBensin(CarEngine mesin, int bensin){        
@@ -70,7 +78,7 @@ public class JavaApp {
         String command;
         JavaApp j ;
         
-            Scanner sc=new Scanner(System.in);
+            Scanner sc=new Scanner(System.in);            
             CarEngine aCarEngine = new CarEngine(); 
             CarCondition aCarCondition = new CarCondition();
             CarTires aCarTires = new CarTires();
@@ -78,26 +86,19 @@ public class JavaApp {
         
             bensin = sc.nextInt();
             oli = sc.nextInt();
-            aCarEngine.setBensin(bensin);
-            aCarEngine.setOli(oli);
-            
             command = sc.nextLine();
-            while(!command.equals("stop")){                
-                j.jalan(aCarEngine,aCarCondition,aCarTires);                                
-                System.out.println(
-                    "Status Mobil = "+aCarEngine.getBensin()+
-                    " Bensin: "+ aCarEngine.getOli()+ 
-                    " Kilo : "+ aCarCondition.getKiloMobil()+
-                    " Overkilo: "+aCarCondition.getOverKilo()
-                );        
-               
-                if(!aCarCondition.isRusak()){
-                    command = sc.nextLine();
-                }else{
+            aCarEngine.setBensin(bensin);
+            aCarEngine.setOli(oli);            
+            
+            while(!(command = sc.nextLine()).equals("stop")){                       
+                j.jalan(aCarEngine,aCarCondition,aCarTires);     
+                j.getStatus(aCarEngine, aCarCondition);
+                if(aCarCondition.isRusak()){
                     System.out.println("Mobil Rusak :(((");
                     break;
-                }                    
-                System.out.println(command);
+                }
+                
+                System.out.println("Command is : "+command);
             }
             
     }
