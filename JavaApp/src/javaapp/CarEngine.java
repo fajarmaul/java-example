@@ -19,9 +19,7 @@ public class CarEngine {
         this.bensin = 0;
         this.oli = 0;
     }
-    
-    
-
+       
     public Boolean getLayak() {
         return layak;
     }
@@ -67,5 +65,16 @@ public class CarEngine {
         }
     }
     
+    public void isiBensin(int bensin){                        
+        System.out.println("Bensin Sekarang ada "+this.bensin);
+        this.setBensin(this.bensin+bensin);
+        System.out.println("Setelah diisi, bensin ada "+this.bensin);
+    }
+    
+    public void isiOli(int oli){        
+        System.out.println("Oli Sekarang ada "+this.oli);
+        this.setOli(this.oli+oli);
+        System.out.println("Stelah diisi, Oli Sekarang ada "+this.oli);
+    }
     
 }

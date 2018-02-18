@@ -72,6 +72,12 @@ public class CarCondition {
         }
         return this.isRusak();
     }
+    
+    public void doPerbaikan(){
+        this.isNeedPerbaikan = false;
+        this.overKilo = 0;        
+        System.out.println("Engine Repaired \n");
+    }
   
     
 }
